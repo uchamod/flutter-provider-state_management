@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 class ProductCard extends StatelessWidget {
   final String name;
   final double price;
+  final int quntity;
+  final Color iconColor;
   final Function() addCartItem;
-  const ProductCard({super.key, required this.name, required this.price, required this.addCartItem});
+  const ProductCard(
+      {super.key,
+      required this.name,
+      required this.price,
+      required this.addCartItem,
+      required this.quntity, required this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +34,9 @@ class ProductCard extends StatelessWidget {
               width: 20,
             ),
             //quintity
-            const Text(
-              "0",
-              style: TextStyle(
+            Text(
+              quntity.toString(),
+              style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w700),
@@ -58,9 +65,10 @@ class ProductCard extends StatelessWidget {
             //add cart
             IconButton(
               onPressed: addCartItem,
-              icon: const Icon(
+              icon: Icon(
                 Icons.shopping_cart,
                 size: 24,
+                color:iconColor,
               ),
             )
           ],

@@ -2,7 +2,7 @@ class CartModel {
   final String cartItemId;
   final String cartItemName;
   final double cartItemPrice;
-  final double itemquntity;
+  final int itemquntity;
 
   CartModel(
       {required this.cartItemId,

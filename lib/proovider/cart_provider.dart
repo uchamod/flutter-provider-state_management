@@ -36,4 +36,37 @@ class CartProvider extends ChangeNotifier {
     //notify listners when state is updated
     notifyListeners();
   }
+
+  //remove all items
+  void removeAll() {
+    _items.clear();
+    notifyListeners();
+  }
+
+  //remove item
+  void removeItem(String cartId) {
+    _items.remove(cartId);
+    notifyListeners();
+  }
+
+  //remove single bud from item
+  void removeSingleItem(String productid) {
+    if (!_items.containsKey(productid)) {
+      return;
+    } else if (_items[productid]!.itemquntity > 1) {
+      _items.update(
+        productid,
+        (existItem) => CartModel(
+          cartItemId: existItem.cartItemId,
+          cartItemName: existItem.cartItemName,
+          cartItemPrice: existItem.cartItemPrice,
+          itemquntity: existItem.itemquntity - 1,
+        ),
+      );
+    } else {
+      _items.remove(productid);
+    }
+
+    notifyListeners();
+  }
 }
