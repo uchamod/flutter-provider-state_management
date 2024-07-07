@@ -1,12 +1,12 @@
 class CartModel {
-  final String cartId;
-  final String cartName;
-  final double cartPrice;
-  final double quntity;
+  final String cartItemId;
+  final String cartItemName;
+  final double cartItemPrice;
+  final double itemquntity;
 
   CartModel(
-      {required this.cartId,
-      required this.cartName,
-      required this.cartPrice,
-      required this.quntity});
+      {required this.cartItemId,
+      required this.cartItemName,
+      required this.cartItemPrice,
+      required this.itemquntity});
 }

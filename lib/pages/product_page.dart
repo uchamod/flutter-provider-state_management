@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:provider_demo/data/product_data.dart';
 import 'package:provider_demo/model/product_model.dart';
 import 'package:provider_demo/pages/cart_page.dart';
 import 'package:provider_demo/pages/favurite_page.dart';
+import 'package:provider_demo/proovider/cart_provider.dart';
 import 'package:provider_demo/widgets/product_card.dart';
+
 //product page
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -76,10 +79,24 @@ class ProductPage extends StatelessWidget {
                 itemCount: productList.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  //product item
-                  return ProductCard(
-                      name: productList[index].proName,
-                      price: productList[index].proPrice);
+                    //product item
+                  ProductModel product = productList[index];
+                 //define the consumer:here whaen click the cart icon the cartpage and product page should update
+                 //thus the carticon is a consumer so it should wrap with consumer
+                 //the value argument is the provider that the consumer get the state
+                  return Consumer(
+                    builder: (BuildContext context, CartProvider cartProvider,
+                        child) {
+                      return ProductCard(
+                        name: product.proName,
+                        price: product.proPrice,
+                        addCartItem: () {
+                          cartProvider.addCartItem(
+                              product.proId, product.proName, product.proPrice);
+                        },
+                      );
+                    },
+                  );
                 },
               ),
             ],

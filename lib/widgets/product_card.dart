@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 class ProductCard extends StatelessWidget {
   final String name;
   final double price;
-  const ProductCard({super.key, required this.name, required this.price});
+  final Function() addCartItem;
+  const ProductCard({super.key, required this.name, required this.price, required this.addCartItem});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.grey.withOpacity(0.1),
       child: ListTile(
-       // minLeadingWidth: 80,
-        contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+        // minLeadingWidth: 80,
+        contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         title: Row(
           children: [
             //product name
@@ -22,7 +23,9 @@ class ProductCard extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.w700),
             ),
-            const SizedBox(width: 20,),
+            const SizedBox(
+              width: 20,
+            ),
             //quintity
             const Text(
               "0",
@@ -31,7 +34,6 @@ class ProductCard extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.w700),
             ),
-            
           ],
         ),
         //product price
@@ -55,7 +57,7 @@ class ProductCard extends StatelessWidget {
             ),
             //add cart
             IconButton(
-              onPressed: () {},
+              onPressed: addCartItem,
               icon: const Icon(
                 Icons.shopping_cart,
                 size: 24,
