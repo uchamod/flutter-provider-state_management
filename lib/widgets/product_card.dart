@@ -4,14 +4,16 @@ class ProductCard extends StatelessWidget {
   final String name;
   final double price;
   final int quntity;
-  final Color iconColor;
+  final Color cartColor;
+  final Color favColor;
   final Function() addCartItem;
+  final Function() addFav;
   const ProductCard(
       {super.key,
       required this.name,
       required this.price,
       required this.addCartItem,
-      required this.quntity, required this.iconColor});
+      required this.quntity,  required this.addFav, required this.cartColor, required this.favColor});
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +58,11 @@ class ProductCard extends StatelessWidget {
           children: [
             //add fav
             IconButton(
-              onPressed: () {},
-              icon: const Icon(
+              onPressed: addFav,
+              icon: Icon(
                 Icons.favorite,
                 size: 24,
+                color: favColor,
               ),
             ),
             //add cart
@@ -68,7 +71,7 @@ class ProductCard extends StatelessWidget {
               icon: Icon(
                 Icons.shopping_cart,
                 size: 24,
-                color:iconColor,
+                color:cartColor,
               ),
             )
           ],

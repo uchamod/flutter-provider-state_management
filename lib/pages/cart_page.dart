@@ -36,26 +36,50 @@ class CartPage extends StatelessWidget {
                       name: cartItem.cartItemName,
                       price: cartItem.cartItemPrice,
                       quntity: cartItem.itemquntity,
+                      //remove single item
                       removeSingleItem: () {
                         cartprovider.removeSingleItem(cartItem.cartItemId);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              duration: Duration(seconds: 1),
-                              content: Text("Item removed"),
-                            ),
-                          );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            duration: Duration(seconds: 1),
+                            content: Text("Item removed"),
+                          ),
+                        );
                       },
+                      //remove full of items
                       removeItem: () {
                         cartprovider.removeItem(cartItem.cartItemId);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              duration: Duration(seconds: 1),
-                              content: Text("Cart item romove"),
-                            ),
-                          );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            duration: Duration(seconds: 1),
+                            content: Text("Cart item romove"),
+                          ),
+                        );
                       },
                     );
                   },
+                ),
+              ),
+              //show total
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  "Total : ${cartprovider.totalPrice.toStringAsFixed(1)}",
+                  style: const TextStyle(color: Colors.black54, fontSize: 18),
+                ),
+              ),
+              //clear cart
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  autofocus: true,
+                  onPressed: () {
+                    cartprovider.removeAll();
+                  },
+                  child: const Text(
+                    "Clear",
+                    style: TextStyle(color: Colors.black54, fontSize: 18),
+                  ),
                 ),
               ),
             ],

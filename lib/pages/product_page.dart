@@ -5,6 +5,7 @@ import 'package:provider_demo/model/product_model.dart';
 import 'package:provider_demo/pages/cart_page.dart';
 import 'package:provider_demo/pages/favurite_page.dart';
 import 'package:provider_demo/proovider/cart_provider.dart';
+import 'package:provider_demo/proovider/fav_provider.dart';
 import 'package:provider_demo/widgets/product_card.dart';
 
 //product page
@@ -84,21 +85,24 @@ class ProductPage extends StatelessWidget {
                   //define the consumer:here whaen click the cart icon the cartpage and product page should update
                   //thus the carticon is a consumer so it should wrap with consumer
                   //the value argument is the provider that the consumer get the state
-                  return Consumer<CartProvider>(
+                  return Consumer2<CartProvider, FavProvider>(
                     builder: (BuildContext context, CartProvider cartProvider,
-                        child) {
+                        FavProvider favProvider, child) {
                       return ProductCard(
                         name: product.proName,
                         price: product.proPrice,
-                        iconColor: cartProvider.getCartItems.containsKey(
+                        //cart icon
+                        cartColor: cartProvider.getCartItems.containsKey(
                                 product.proId) //if item cotain change color
                             ? Colors.orange
                             : Colors.black54,
+                        //cart item quntity
                         quntity: cartProvider.getCartItems.containsKey(
                                 product.proId) //if item contain change quntity
                             ? cartProvider
                                 .getCartItems[product.proId]!.itemquntity
                             : 0,
+                        //add item to cart
                         addCartItem: () {
                           cartProvider.addCartItem(
                               product.proId, product.proName, product.proPrice);
@@ -109,6 +113,14 @@ class ProductPage extends StatelessWidget {
                             ),
                           );
                         },
+                        //add item to fav
+                        addFav: () {
+                          favProvider.whenToggleFavIcon(product, context);
+                        },
+                        favColor:
+                            favProvider.favCartItem.containsKey(product.proId)
+                                ? Colors.orange
+                                : Colors.black54,
                       );
                     },
                   );
