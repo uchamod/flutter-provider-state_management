@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/pages/product_page.dart';
 import 'package:provider_demo/proovider/cart_provider.dart';
+import 'package:provider_demo/proovider/fav_provider.dart';
 
 void main() {
   //warp with providers
   //say widget tree what notifyproviders that are use
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => CartProvider(),
-      child: const MyApp(),
-    ),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(
+        create: (context) => CartProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => FavProvider(),
+      )
+    ], child: const MyApp()),
   );
 }
 
