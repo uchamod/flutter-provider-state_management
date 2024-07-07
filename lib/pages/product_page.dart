@@ -79,20 +79,35 @@ class ProductPage extends StatelessWidget {
                 itemCount: productList.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                    //product item
+                  //product item
                   ProductModel product = productList[index];
-                 //define the consumer:here whaen click the cart icon the cartpage and product page should update
-                 //thus the carticon is a consumer so it should wrap with consumer
-                 //the value argument is the provider that the consumer get the state
-                  return Consumer(
+                  //define the consumer:here whaen click the cart icon the cartpage and product page should update
+                  //thus the carticon is a consumer so it should wrap with consumer
+                  //the value argument is the provider that the consumer get the state
+                  return Consumer<CartProvider>(
                     builder: (BuildContext context, CartProvider cartProvider,
                         child) {
                       return ProductCard(
                         name: product.proName,
                         price: product.proPrice,
+                        iconColor: cartProvider.getCartItems.containsKey(
+                                product.proId) //if item cotain change color
+                            ? Colors.orange
+                            : Colors.black54,
+                        quntity: cartProvider.getCartItems.containsKey(
+                                product.proId) //if item contain change quntity
+                            ? cartProvider
+                                .getCartItems[product.proId]!.itemquntity
+                            : 0,
                         addCartItem: () {
                           cartProvider.addCartItem(
                               product.proId, product.proName, product.proPrice);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              duration: Duration(seconds: 1),
+                              content: Text("Item is added"),
+                            ),
+                          );
                         },
                       );
                     },
